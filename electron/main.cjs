@@ -12,8 +12,8 @@ ipcMain.handle('games:get', (event, filters) =>
 )
 ipcMain.handle('teams:get', () => getTeams())
 ipcMain.handle('cache:clear', () => { cache.clear(); return true })
-ipcMain.handle('settings:hasKey', () => !!getApiKey())
-ipcMain.handle('settings:setKey', (_e, key) => { setApiKey(key); return !!getApiKey() })
+ipcMain.handle('settings:hasKey', async() => !!(await getApiKey()))
+ipcMain.handle('settings:setKey', async(_e, key) => { await setApiKey(key); return !!(await getApiKey()) })
 
 function createWindow() {
   const win = new BrowserWindow({

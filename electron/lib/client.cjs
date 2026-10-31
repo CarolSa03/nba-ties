@@ -20,7 +20,7 @@ const isoDaysAgo = (n) => {
 }
 
 async function request(pathname, params = {}) {
-  const key = getApiKey()
+  const key = await getApiKey()
   if (!key) throw new Error('No API key set. Add your BallDontLie key in settings.')
 
   const url = new URL(BASE_URL + pathname)
