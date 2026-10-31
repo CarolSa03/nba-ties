@@ -1,0 +1,61 @@
+{
+  "name": "nba-yanny",
+  "version": "1.0.0",
+  "description": "Find NBA games.",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "vite build && electron .",
+    "electron:dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && cross-env ELECTRON_DEV=1 electron .\"",
+    "dist": "vite build && electron-builder",
+    "pack": "vite build && electron-builder --dir",
+    "test": "node --test tests/logic.test.cjs tests/gameProcessor.test.cjs tests/cache.test.cjs tests/client.test.cjs",
+    "test:ui": "vitest run",
+    "test:all": "npm test && npm run test:ui"
+  },
+  "dependencies": {
+    "@vueuse/core": "^11.0.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.452.0",
+    "tailwind-merge": "^2.5.0",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.0",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.0",
+    "cross-env": "^7.0.3",
+    "electron": "^32.0.0",
+    "electron-builder": "^25.0.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "vite": "^5.4.0",
+    "vitest": "^2.1.9",
+    "wait-on": "^8.0.0"
+  },
+  "build": {
+    "appId": "com.local.nbaties",
+    "productName": "Yanny NBA",
+    "files": [
+      "dist/**",
+      "electron/**"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "directories": {
+      "output": "release"
+    }
+  }
+}
